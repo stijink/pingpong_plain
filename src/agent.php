@@ -9,9 +9,9 @@ $logger    = $container['logger'];
 
 $logger->info('PingPong agent started');
 
-connect('ws://' . PINGPONG_SERVER . ':' . PINGPONG_PORT . '/')->then(function($conn) use ($logger) {
+connect('ws://' . $_ENV['PINGPONG_SERVER'] . ':' . $_ENV['PINGPONG_PORT'] . '/')->then(function($conn) use ($logger) {
 
-    $logger->info('Connected to PingPong Server at ' . PINGPONG_SERVER . ':' . PINGPONG_PORT);
+    $logger->info('Connected to PingPong Server at ' . $_ENV['PINGPONG_SERVER'] . ':' . $_ENV['PINGPONG_PORT']);
 
     $payload = [
         'hostname'  => 'cloud-pi',
@@ -22,6 +22,6 @@ connect('ws://' . PINGPONG_SERVER . ':' . PINGPONG_PORT . '/')->then(function($c
     $conn->send(json_encode($payload));
 
 }, function ($e) use ($logger) {
-    $logger->error('Could not connect to PingPong Server at ' . PINGPONG_SERVER . ':' . PINGPONG_PORT);
+    $logger->error('Could not connect to PingPong Server at ' . $_ENV['PINGPONG_SERVER'] . ':' . $_ENV['PINGPONG_PORT']);
     $logger->error($e->getMessage());
 });

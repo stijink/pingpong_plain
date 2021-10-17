@@ -2,16 +2,18 @@
 
 namespace App;
 
+use Doctrine\DBAL\DriverManager;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
-
-const PINGPONG_PORT     = 3000;
-const PINGPONG_SERVER   = 'localhost';
 
 require __DIR__ . '/../vendor/autoload.php';
 
 $logger = new Logger('app');
 $logger->pushHandler(new StreamHandler('php://stdout', Logger::DEBUG));
+
+$database = DriverManager::getConnection(['url' => 'mysql://pingpong:YQvaW9R3t6ztuLJJ@mysql/pingpong?serverVersion=mariadb-10.4.15']);
+
+dump($database->getConfiguration());
 
 // Make sure the command can be stopped
 pcntl_signal(SIGINT, function () use ($logger) {
@@ -19,6 +21,9 @@ pcntl_signal(SIGINT, function () use ($logger) {
     die;
 });
 
-$container['logger'] = $logger;
+$container = [
+    'logger'   => $logger,
+    'database' => $database,
+];
 
 return $container;

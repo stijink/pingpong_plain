@@ -1,0 +1,32 @@
+version: '3.4'
+services:
+
+    app:
+        build:
+            context: .
+            target: base
+        image: stijink/pingpong-dev
+        volumes:
+            - ./:/var/www
+        environment:
+            PINGPONG_PORT: 3000
+            PINGPONG_SERVER: 172.28.0.3
+        command: php /var/www/src/server.php
+        ports:
+            - 3000
+
+    mysql:
+        image: yobasystems/alpine-mariadb:10.4.15
+        volumes:
+            - mysql-data:/var/lib/mysql
+        ports:
+            - 3307:3306
+        command: --default-authentication-plugin=mysql_native_password
+        environment:
+            MYSQL_ROOT_PASSWORD: CExCD4BKrZFR8bzB
+            MYSQL_DATABASE: pingpong
+            MYSQL_USER: pingpong
+            MYSQL_PASSWORD: YQvaW9R3t6ztuLJJ
+
+volumes:
+    mysql-data:
