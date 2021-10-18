@@ -13,8 +13,6 @@ $logger->pushHandler(new StreamHandler('php://stdout', Logger::DEBUG));
 
 $database = DriverManager::getConnection(['url' => 'mysql://pingpong:YQvaW9R3t6ztuLJJ@mysql/pingpong?serverVersion=mariadb-10.4.15']);
 
-dump($database->getConfiguration());
-
 // Make sure the command can be stopped
 pcntl_signal(SIGINT, function () use ($logger) {
     $logger->info('Manually terminated');

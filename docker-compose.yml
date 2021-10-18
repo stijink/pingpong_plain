@@ -10,7 +10,7 @@ services:
             - ./:/var/www
         environment:
             PINGPONG_PORT: 3000
-            PINGPONG_SERVER: 172.28.0.3
+            PINGPONG_SERVER: app
         command: php /var/www/src/server.php
         ports:
             - 3000

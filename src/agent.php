@@ -9,7 +9,7 @@ $logger    = $container['logger'];
 
 $logger->info('PingPong agent started');
 
-connect('ws://' . $_ENV['PINGPONG_SERVER'] . ':' . $_ENV['PINGPONG_PORT'] . '/')->then(function($conn) use ($logger) {
+connect('ws://' . $_SERVER['HOSTNAME'] . ':' . $_ENV['PINGPONG_PORT'] . '/')->then(function($conn) use ($logger) {
 
     $logger->info('Connected to PingPong Server at ' . $_ENV['PINGPONG_SERVER'] . ':' . $_ENV['PINGPONG_PORT']);
 
